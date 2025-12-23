@@ -6,6 +6,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject readyText;
     [SerializeField] private GameObject correctText;
     [SerializeField] private GameObject missText;
+    [SerializeField] private GameObject retryButton;
 
     private void Awake()
     {
@@ -65,6 +66,7 @@ public class UIManager : MonoBehaviour
     public void MissTextOn()
     {
         missText.SetActive(true);
+        retryButton.SetActive(true);
     }
 
     /// <summary>
@@ -73,6 +75,7 @@ public class UIManager : MonoBehaviour
     public void MissTextOff()
     {
         missText.SetActive(false);
+        retryButton.SetActive(false);
     }
 
 }

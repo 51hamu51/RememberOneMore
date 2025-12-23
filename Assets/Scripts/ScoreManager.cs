@@ -93,6 +93,14 @@ public class ScoreManager : MonoBehaviour
         combo++;
         int increaseScore = Mathf.RoundToInt(basicScore * (1 + (combo - 1) * 0.15f));
         AddScore(increaseScore);
-        Debug.Log("Score:" + nowScore);
+    }
+
+    /// <summary>
+    /// 現在のコンボ数を取得
+    /// </summary>
+    /// <returns></returns>
+    public int GetCombo()
+    {
+        return combo;
     }
 }

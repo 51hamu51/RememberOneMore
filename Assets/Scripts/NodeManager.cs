@@ -114,19 +114,16 @@ public class NodeManager : MonoBehaviour
         // 正誤判定
         if (id == correctSequence[inputIndex])
         {
-            Debug.Log("正解！");
             inputIndex++;
 
             // 全部正解したら
             if (inputIndex >= correctSequence.Count)
             {
-                Debug.Log("オールクリア！");
                 GameManager.Instance.TurnFinishCorrect();
             }
         }
         else
         {
-            Debug.Log("ミス！");
             GameManager.Instance.TurnFinishMiss();
         }
     }

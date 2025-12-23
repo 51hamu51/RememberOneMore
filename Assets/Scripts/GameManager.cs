@@ -133,6 +133,8 @@ public class GameManager : MonoBehaviour
         ShineNum = 1;
         nowPhase = Phase.READY;
         UIManager.Instance.ReadyTextOn();
+        UIManager.Instance.MissTextOff();
+        UIManager.Instance.CorrectTextOff();
         ScoreManager.Instance.ResetScore();
     }
 
