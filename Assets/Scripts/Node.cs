@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class Node : MonoBehaviour, IPointerClickHandler
 {
@@ -13,11 +14,18 @@ public class Node : MonoBehaviour, IPointerClickHandler
     [SerializeField] private string normalColor;
     [SerializeField] private string litColor;
 
+    /// <summary>
+    /// デフォルトの大きさを取得しておく
+    /// </summary>
+    private Vector3 defaultScale;
+
     private Image nodeImage;
+    private Tween tapTween;
 
     void Start()
     {
         nodeImage = GetComponent<Image>();
+        defaultScale = transform.localScale;
         SetColor(normalColor);
     }
     void Update()
@@ -48,8 +56,10 @@ public class Node : MonoBehaviour, IPointerClickHandler
     {
         // TAPフェーズ以外は無視
         if (GameManager.Instance.NowPhase() != GameManager.Phase.TAP)
+        {
             return;
-
+        }
+        PlayTapScaleEffect();
         NodeManager.Instance.OnNodeTapped(nodeId);
     }
 
@@ -70,4 +80,26 @@ public class Node : MonoBehaviour, IPointerClickHandler
             Debug.LogWarning($"無効なカラーコード: {htmlColor}");
         }
     }
+
+    /// <summary>
+    /// タップされたときの反応
+    /// </summary>
+    /// <returns></returns>
+    private void PlayTapScaleEffect()
+    {
+        tapTween?.Kill();
+
+        transform.localScale = defaultScale;
+
+        tapTween = transform
+            .DOScale(defaultScale * NodeManager.Instance.tapScale, NodeManager.Instance.tapDuration * 0.5f)
+            .SetEase(Ease.OutBack)
+            .OnComplete(() =>
+            {
+                transform
+                    .DOScale(defaultScale, NodeManager.Instance.tapDuration * 0.5f)
+                    .SetEase(Ease.InBack);
+            });
+    }
+
 }

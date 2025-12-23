@@ -11,6 +11,10 @@ public class NodeManager : MonoBehaviour
     [SerializeField] private float shineDuration;
     [SerializeField] private float interval;
 
+    [Header("タップされたとき用")]
+    public float tapScale;
+    public float tapDuration;
+
     /// <summary>
     /// 正解のノード順
     /// </summary>

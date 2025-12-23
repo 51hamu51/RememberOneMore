@@ -67,6 +67,8 @@ public class GameManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             ChangePhase(Phase.SHINE);
+            UIManager.Instance.ReadyTextOff();
+            UIManager.Instance.CorrectTextOff();
             ShinePhase();
         }
     }
@@ -94,10 +96,12 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void TurnFinishCorrect()
     {
-        //正解のエフェクトを出す
+        UIManager.Instance.CorrectTextOn();
+        //時間空けて、非表示
         ScoreManager.Instance.Correct();
         ShineNum++;
         ChangePhase(Phase.READY);
+        UIManager.Instance.ReadyTextOn();
 
     }
 
@@ -106,8 +110,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void TurnFinishMiss()
     {
-        //失敗のエフェクトを出す
-
+        UIManager.Instance.MissTextOn();
+        //時間空けて、非表示
         ChangePhase(Phase.RESULT);
         ResultPhase();
     }
@@ -128,6 +132,7 @@ public class GameManager : MonoBehaviour
     {
         ShineNum = 1;
         nowPhase = Phase.READY;
+        UIManager.Instance.ReadyTextOn();
         ScoreManager.Instance.ResetScore();
     }
 
