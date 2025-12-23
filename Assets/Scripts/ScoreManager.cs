@@ -28,7 +28,6 @@ public class ScoreManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     void Start()
@@ -92,7 +91,8 @@ public class ScoreManager : MonoBehaviour
     public void Correct()
     {
         combo++;
-        int increaseScore = (int)(basicScore * (1 + combo * 0.15));
+        int increaseScore = Mathf.RoundToInt(basicScore * (1 + (combo - 1) * 0.15f));
         AddScore(increaseScore);
+        Debug.Log("Score:" + nowScore);
     }
 }
