@@ -2,10 +2,34 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
+    public static ScoreManager Instance { get; private set; }
+
     /// <summary>
     /// 現在のスコア
     /// </summary>
     [SerializeField] private int nowScore;
+
+    /// <summary>
+    /// 正解一回当たりの増加スコア(倍率なしの場合)
+    /// </summary>
+    [SerializeField] private int basicScore;
+
+    /// <summary>
+    /// 現在の連続正解数
+    /// </summary>
+    public int combo;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
     void Start()
     {
@@ -20,9 +44,10 @@ public class ScoreManager : MonoBehaviour
     /// <summary>
     /// スコアをリセット
     /// </summary>
-    public void Reset()
+    public void ResetScore()
     {
         SetScore(0);
+        combo = 0;
     }
 
     /// <summary>
@@ -59,5 +84,15 @@ public class ScoreManager : MonoBehaviour
     public int GetScore()
     {
         return nowScore;
+    }
+
+    /// <summary>
+    /// 正解したときの処理
+    /// </summary>
+    public void Correct()
+    {
+        combo++;
+        int increaseScore = (int)(basicScore * (1 + combo * 0.15));
+        AddScore(increaseScore);
     }
 }

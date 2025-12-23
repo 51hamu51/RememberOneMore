@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance { get; private set; }
     public enum Phase
     {
         READY,//準備
@@ -15,6 +16,18 @@ public class GameManager : MonoBehaviour
     /// </summary>
     [SerializeField] private Phase nowPhase;
 
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
     void Start()
     {
 
@@ -23,6 +36,15 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
+    }
+
+    /// <summary>
+    /// ゲームを初期化
+    /// </summary>
+    public void ResetGame()
+    {
+        nowPhase = Phase.READY;
+        ScoreManager.Instance.ResetScore();
     }
 
     /// <summary>
