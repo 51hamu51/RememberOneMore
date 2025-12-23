@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject correctText;
     [SerializeField] private GameObject missText;
     [SerializeField] private GameObject retryButton;
+    [SerializeField] private GameObject backTitleButton;
 
     private void Awake()
     {
@@ -67,6 +68,7 @@ public class UIManager : MonoBehaviour
     {
         missText.SetActive(true);
         retryButton.SetActive(true);
+        backTitleButton.SetActive(true);
     }
 
     /// <summary>
@@ -76,6 +78,7 @@ public class UIManager : MonoBehaviour
     {
         missText.SetActive(false);
         retryButton.SetActive(false);
+        backTitleButton.SetActive(false);
     }
 
 }

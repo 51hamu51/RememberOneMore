@@ -10,6 +10,11 @@ public class Node : MonoBehaviour, IPointerClickHandler
     /// </summary>
     public int nodeId;
 
+    /// <summary>
+    /// タップされたときの音
+    /// </summary>
+    [SerializeField] private AudioClip tapSE;
+
     [Header("カラー（HTMLカラーコード・#つき）")]
     [SerializeField] private string normalColor;
     [SerializeField] private string litColor;
@@ -39,6 +44,7 @@ public class Node : MonoBehaviour, IPointerClickHandler
     public void Shine()
     {
         SetColor(litColor);
+        SEManager.Instance.PlayOneTime(tapSE);
     }
 
     /// <summary>
@@ -87,6 +93,7 @@ public class Node : MonoBehaviour, IPointerClickHandler
     /// <returns></returns>
     private void PlayTapScaleEffect()
     {
+        SEManager.Instance.PlayOneTime(tapSE);
         tapTween?.Kill();
 
         transform.localScale = defaultScale;
