@@ -700,6 +700,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nowScore: 0
+  basicScore: 100
+  combo: 0
 --- !u!1 &1430216421
 GameObject:
   m_ObjectHideFlags: 0
