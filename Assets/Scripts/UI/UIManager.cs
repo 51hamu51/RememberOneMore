@@ -9,6 +9,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject retryButton;
     [SerializeField] private GameObject backTitleButton;
 
+    [SerializeField] private TextShaker comboTextShaker;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -51,6 +53,7 @@ public class UIManager : MonoBehaviour
     public void CorrectTextOn()
     {
         correctText.SetActive(true);
+        comboTextShaker.Shake();
     }
 
     /// <summary>

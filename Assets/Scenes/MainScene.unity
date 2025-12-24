@@ -1267,6 +1267,7 @@ MonoBehaviour:
   missText: {fileID: 803645007}
   retryButton: {fileID: 1674020303}
   backTitleButton: {fileID: 679739326}
+  comboTextShaker: {fileID: 2118093938}
 --- !u!1 &1103053164
 GameObject:
   m_ObjectHideFlags: 0
@@ -2245,6 +2246,7 @@ GameObject:
   - component: {fileID: 2118093936}
   - component: {fileID: 2118093935}
   - component: {fileID: 2118093937}
+  - component: {fileID: 2118093938}
   m_Layer: 5
   m_Name: ComboText
   m_TagString: Untagged
@@ -2383,6 +2385,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   comboText: {fileID: 2118093935}
+--- !u!114 &2118093938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118093932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b79ccecd38938d498275919b17e6a24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0.25
+  strength: 10
 --- !u!1001 &3230919514623122263
 PrefabInstance:
   m_ObjectHideFlags: 0
