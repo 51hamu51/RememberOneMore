@@ -17,9 +17,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Phase nowPhase;
 
     /// <summary>
-    /// 1ターンに光るノードの数
+    /// 現在のターン数
     /// </summary>
-    public int ShineNum;
+    public int turnNum;
+
+    private int roupNum;
+    private int soundTimes;
 
     private void Awake()
     {
@@ -80,7 +83,22 @@ public class GameManager : MonoBehaviour
     {
         //ここでカウントダウン出したい
 
-        NodeManager.Instance.ShineRandomNodes(ShineNum);
+        if (LevelManager.Instance.GetMode() == LevelManager.Mode.CHALLENGE)
+        {
+            roupNum++;
+            if (roupNum >= soundTimes)
+            {
+                roupNum = 0;
+                soundTimes++;
+            }
+        }
+        else if (LevelManager.Instance.GetMode() == LevelManager.Mode.ENDLESS)
+        {
+            soundTimes = Random.Range(3, 6);
+        }
+
+
+        NodeManager.Instance.ShineRandomNodes(soundTimes);
     }
 
     /// <summary>
@@ -99,7 +117,7 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.CorrectTextOn();
         //時間空けて、非表示
         ScoreManager.Instance.Correct();
-        ShineNum++;
+        turnNum++;
         ChangePhase(Phase.READY);
         UIManager.Instance.ReadyTextOn();
 
@@ -131,7 +149,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ResetGame()
     {
-        ShineNum = 1;
+        turnNum = 1;
+        roupNum = 0;
+        soundTimes = 0;
         nowPhase = Phase.READY;
         UIManager.Instance.ReadyTextOn();
         UIManager.Instance.MissTextOff();

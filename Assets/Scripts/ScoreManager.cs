@@ -110,6 +110,14 @@ public class ScoreManager : MonoBehaviour
     /// </summary>
     public void RankingUpdate()
     {
-        UnityroomApiClient.Instance.SendScore(1, nowScore, ScoreboardWriteMode.HighScoreDesc);
+        if (LevelManager.Instance.GetMode() == LevelManager.Mode.CHALLENGE)
+        {
+            UnityroomApiClient.Instance.SendScore(1, nowScore, ScoreboardWriteMode.HighScoreDesc);
+        }
+        else if (LevelManager.Instance.GetMode() == LevelManager.Mode.ENDLESS)
+        {
+            UnityroomApiClient.Instance.SendScore(2, nowScore, ScoreboardWriteMode.HighScoreDesc);
+        }
+
     }
 }
