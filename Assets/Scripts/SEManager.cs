@@ -14,6 +14,7 @@ public class SEManager : MonoBehaviour
         }
 
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
     void Start()
     {
