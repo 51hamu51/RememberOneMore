@@ -121,6 +121,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void ResultPhase()
     {
+        ScoreManager.Instance.RankingUpdate();
         //スコア表示
     }
 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using unityroom.Api;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -102,5 +103,13 @@ public class ScoreManager : MonoBehaviour
     public int GetCombo()
     {
         return combo;
+    }
+
+    /// <summary>
+    /// ランキングにスコアを送信
+    /// </summary>
+    public void RankingUpdate()
+    {
+        UnityroomApiClient.Instance.SendScore(1, nowScore, ScoreboardWriteMode.HighScoreDesc);
     }
 }
