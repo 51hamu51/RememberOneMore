@@ -34,6 +34,8 @@ public class Node : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image effectImage;
     [SerializeField] private RectTransform effectRect;
 
+    private Tween colorTween;
+
     void Start()
     {
         nodeImage = GetComponent<Image>();
@@ -72,6 +74,7 @@ public class Node : MonoBehaviour, IPointerClickHandler
         {
             return;
         }
+        Flash();
         PlayTapScaleEffect();
         NodeManager.Instance.OnNodeTapped(nodeId);
     }
@@ -84,14 +87,8 @@ public class Node : MonoBehaviour, IPointerClickHandler
     {
         if (nodeImage == null) return;
 
-        if (ColorUtility.TryParseHtmlString(htmlColor, out Color color))
-        {
-            nodeImage.color = color;
-        }
-        else
-        {
-            Debug.LogWarning($"無効なカラーコード: {htmlColor}");
-        }
+        nodeImage.color = GetColorCode(htmlColor);
+
     }
 
     /// <summary>
@@ -100,10 +97,9 @@ public class Node : MonoBehaviour, IPointerClickHandler
     /// <returns></returns>
     private void PlayTapScaleEffect()
     {
-        if (ColorUtility.TryParseHtmlString(litColor, out Color color))
-        {
-            CircleEffectPlay(color);
-        }
+
+        CircleEffectPlay(GetColorCode(litColor));
+
 
         SEManager.Instance.PlayOneTime(tapSE);
         tapTween?.Kill();
@@ -139,6 +135,33 @@ public class Node : MonoBehaviour, IPointerClickHandler
 
         effectImage.DOFade(0f, duration)
             .SetEase(Ease.OutCubic);
+    }
+
+    /// <summary>
+    /// タップ時に一瞬光って戻る
+    /// </summary>
+    public void Flash()
+    {
+        colorTween?.Kill();
+
+        // 即座に点灯
+        SetColor(litColor);
+
+        // 少し待ってから、ゆっくり戻す
+        colorTween = nodeImage
+            .DOColor(GetColorCode(normalColor), 0.25f)
+            .SetEase(Ease.OutSine);
+    }
+
+    /// <summary>
+    /// htmlカラーコードから、Unity用のカラーコードを取得
+    /// </summary>
+    /// <param name="htmlColor"></param>
+    /// <returns></returns>
+    private Color GetColorCode(string htmlColor)
+    {
+        ColorUtility.TryParseHtmlString(htmlColor, out Color color);
+        return color;
     }
 
 }
