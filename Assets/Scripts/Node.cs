@@ -27,6 +27,13 @@ public class Node : MonoBehaviour, IPointerClickHandler
     private Image nodeImage;
     private Tween tapTween;
 
+
+    [Header("タップエフェクト(円)用")]
+    [SerializeField] private float duration = 0.4f;
+    [SerializeField] private float maxScale = 1.6f;
+    [SerializeField] private Image effectImage;
+    [SerializeField] private RectTransform effectRect;
+
     void Start()
     {
         nodeImage = GetComponent<Image>();
@@ -93,6 +100,11 @@ public class Node : MonoBehaviour, IPointerClickHandler
     /// <returns></returns>
     private void PlayTapScaleEffect()
     {
+        if (ColorUtility.TryParseHtmlString(litColor, out Color color))
+        {
+            CircleEffectPlay(color);
+        }
+
         SEManager.Instance.PlayOneTime(tapSE);
         tapTween?.Kill();
 
@@ -107,6 +119,26 @@ public class Node : MonoBehaviour, IPointerClickHandler
                     .DOScale(defaultScale, NodeManager.Instance.tapDuration * 0.5f)
                     .SetEase(Ease.InBack);
             });
+    }
+
+    /// <summary>
+    /// 円形エフェクト再生
+    /// </summary>
+    /// <param name="color"></param>
+    public void CircleEffectPlay(Color color)
+    {
+        effectRect.DOKill();
+        effectImage.DOKill();
+
+        effectImage.color = new Color(color.r, color.g, color.b, 0.35f);
+        effectRect.localScale = Vector3.zero;
+        effectImage.color = new Color(color.r, color.g, color.b, 0.6f);
+
+        effectRect.DOScale(maxScale, duration)
+            .SetEase(Ease.OutCubic);
+
+        effectImage.DOFade(0f, duration)
+            .SetEase(Ease.OutCubic);
     }
 
 }
