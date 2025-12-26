@@ -1997,11 +1997,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706d80e620ea0b14db5c39edf146b351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 2079172679}
   ripplePrefab: {fileID: 917039707280266660, guid: c57d634b2605e0247ada5ffaa682dc6f, type: 3}
   playArea: {fileID: 1115951568}
   minInterval: 5
   maxInterval: 1
-  canvas: {fileID: 2079172679}
 --- !u!1 &1171540201
 GameObject:
   m_ObjectHideFlags: 0
