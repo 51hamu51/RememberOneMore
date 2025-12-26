@@ -126,7 +126,6 @@ public class Node : MonoBehaviour, IPointerClickHandler
         effectRect.DOKill();
         effectImage.DOKill();
 
-        effectImage.color = new Color(color.r, color.g, color.b, 0.35f);
         effectRect.localScale = Vector3.zero;
         effectImage.color = new Color(color.r, color.g, color.b, 0.6f);
 
